@@ -11,7 +11,6 @@ from telebot_calendar import Calendar, CallbackData, ENGLISH_LANGUAGE
 from telebot.types import ReplyKeyboardRemove, CallbackQuery, Message
 from typing import Type
 
-
 from config import BOT_TOKEN
 from functions.converter_function import converter_voice_msg
 from functions.spotify_api import get_songs
@@ -51,7 +50,7 @@ ORDER_INFO = {}  # info about user's order (key: str, value: str)
 
 SPOTIFY_LINK = ''  # user's link to a spotify playlist (used in FFeelTools "Підібрати референси")
 
-REFERENCES = set()  # user's reference tracks for making order in FFeelTools "Трек під ключ")
+REFERENCES = set()  # user's reference tracks for making order in "Трек під ключ" service
 
 FORWARD_FILE = []  # info required to forward user's file to me
 
@@ -65,8 +64,6 @@ calendar_1_callback = CallbackData("calendar_1", "action", "year", "month", "day
 help_commands = {
     'start': 'Знайомство з ботом 🦾',
     'help': 'Дізнайся про всі доступні команди 🗣'}
-
-#hideBoard = types.ReplyKeyboardRemove()
 
 
 def listener(messages: list) -> None:
@@ -126,8 +123,7 @@ def authorization(message: Message) -> bool:
 
 
 def update_phone_number(message: Message) -> bool:
-
-    "Changes client's phone number in the database"
+    """Changes client's phone number in the database"""
 
     phone_number = message.text.replace(" ", "")
     user_id = message.from_user.id
@@ -148,7 +144,7 @@ def update_phone_number(message: Message) -> bool:
 
 def store_spotify_link(message: Message) -> bool:
     """
-    Stores user's link in the SPOTIFY_LINK variable
+    Verifies and stores user's spotify link in the SPOTIFY_LINK variable
     """
 
     link = message.text
@@ -164,7 +160,7 @@ def store_spotify_link(message: Message) -> bool:
 
 def send_references(message: Message) -> bool:
     """
-    Sends tracks (artist - song title) filtered by tempo from a playlist given by user
+    Sends tracks (format: artist - song title) filtered by tempo from a playlist given by user (SPOTIFY_LINK)
     """
 
     tempo = message.text
@@ -182,7 +178,32 @@ def send_references(message: Message) -> bool:
     return False
 
 
+def store_references(message: Message) -> bool:
+    """
+    Verifies and stores user's links to the reference tracks (used in "Трек під ключ" service)
+    """
+    USER_STEP[message.chat.id] = USER_STEP[message.chat.id].process()
+
+    reference = message.text
+
+    if reference.startswith('https://'):
+
+        if len(REFERENCES) == 2:
+            REFERENCES.add(reference)
+            return True
+        else:
+            REFERENCES.add(reference)
+            return False
+
+    USER_STEP[message.chat.id] = GetReferences()
+
+
 def store_title(message: Message) -> bool:
+    """
+    Verifies and stores: 1) service name
+                         2) band title/venue
+    into the ORDER_INFO dict
+    """
 
     if message.content_type != 'text':
         return False
@@ -206,24 +227,11 @@ def store_title(message: Message) -> bool:
     return True
 
 
-def store_references(message: Message) -> bool:
-    USER_STEP[message.chat.id] = USER_STEP[message.chat.id].process()
-
-    reference = message.text
-
-    if reference.startswith('https://'):
-
-        if len(REFERENCES) == 2:
-            REFERENCES.add(reference)
-            return True
-        else:
-            REFERENCES.add(reference)
-            return False
-
-    USER_STEP[message.chat.id] = GetReferences()
-
-
 def store_deadline(date: str) -> bool:
+    """
+    Stores: 3) deadline
+    into the ORDER_INFO dict
+    """
     deadline = date
     ORDER_INFO['Дедлайн⏱'] = deadline
 
@@ -231,13 +239,21 @@ def store_deadline(date: str) -> bool:
 
 
 def store_add_info(message: Message) -> bool:
+    """
+    Stores: 4) additional info
+    into the ORDER_INFO dict
+    """
+
     info = message.text
     ORDER_INFO['Додаткова інформація🗒'] = info
 
     return True
 
 
-def send_order(message: Message) -> bool:
+def get_user_order(message: Message) -> bool:
+    """
+    Sends user's order to "me"
+    """
 
     if message.text != 'FFeel':
         return False
@@ -268,6 +284,9 @@ def send_order(message: Message) -> bool:
 
 
 def make_calendar(message: Message) -> None:
+    """
+    Creates telegram calendar
+    """
     now = datetime.datetime.now()
 
     bot.send_message(
@@ -282,17 +301,26 @@ def make_calendar(message: Message) -> None:
 
 
 def send_studio_location(message: Message) -> bool:
+    """
+    Sends the location of my studio to user
+    """
     bot.send_location(message.chat.id, 50.62230637013628, 26.262728422743947)
     return True
 
 
 def send_my_contact(message: Message) -> bool:
+    """
+    Sends my contact to user
+    """
     bot.send_contact(message.chat.id, phone_number='+380979153382', first_name='Dima Philipchuk')
     USER_STEP[message.chat.id] = USER_STEP[message.chat.id].process()
     return True
 
 
 def send_my_spotify_playlist(message: Message) -> bool:
+    """
+    Sends the cover image of my spotify playlist and the hyperlink to it
+    """
     bot.send_photo(message.chat.id, photo=open("pictures/playlist_cover.jpg", 'rb'))
 
     bot.send_message(message.chat.id,
@@ -306,6 +334,9 @@ def send_my_spotify_playlist(message: Message) -> bool:
 
 
 def send_my_website(message: Message) -> bool:
+    """
+    Sends the hyperlink to the FFeel Music Records website
+    """
 
     bot.send_message(message.chat.id,
                      text="<a href='http://project6565316.tilda.ws/'>Перейти до вебсайту ⌨️</a>",
@@ -319,7 +350,10 @@ def send_my_website(message: Message) -> bool:
 @bot.callback_query_handler(
     func=lambda call: call.data.startswith(calendar_1_callback.prefix)
 )
-def callback_inline(call: CallbackQuery) -> None:
+def callback_calendar(call: CallbackQuery) -> None:
+    """
+    Callback handler for the telegram calendar (used when user is choosing a deadline)
+    """
 
     logger.info(call.data)
 
@@ -359,6 +393,9 @@ def callback_inline(call: CallbackQuery) -> None:
 
 @bot.message_handler(commands=["start"])
 def command_start(message: Message) -> None:
+    """
+    Starts the bot
+    """
     USER_STEP[message.chat.id] = Start()
 
     current_state: BaseState = USER_STEP[message.chat.id]
@@ -377,7 +414,10 @@ def command_start(message: Message) -> None:
 
 
 @bot.message_handler(commands=['help'])
-def command_help(message: Message) -> None:
+def help_command(message: Message) -> None:
+    """
+    Help command
+    """
     help_text = "Тобі доступні наступні команди: \n\n"
 
     for key in help_commands:
@@ -390,6 +430,9 @@ def command_help(message: Message) -> None:
 
 
 def markup_handler(chat_id: int) -> None:
+    """
+    Creates InlineKeyboardButtons
+    """
 
     current_state: BaseState = USER_STEP.get(chat_id, Start())
     markup = types.InlineKeyboardMarkup()
@@ -402,6 +445,9 @@ def markup_handler(chat_id: int) -> None:
 
 @bot.callback_query_handler(func=lambda call: True)
 def callback_query(call: CallbackQuery) -> None:
+    """
+    Callback handler for the InlineKeyboardButtons
+    """
     actions = {Two: send_studio_location, Create_calendar: make_calendar,
                Contact_info: send_my_contact, MyPlaylist: send_my_spotify_playlist,
                Website: send_my_website, BaseState: None
@@ -431,6 +477,9 @@ def callback_query(call: CallbackQuery) -> None:
 
 @bot.message_handler(content_types=['voice'])
 def voice_processing(message: Message) -> None:
+    """
+    Message handler for the voice messages
+    """
     current_state: BaseState = USER_STEP[message.chat.id]
 
     if type(current_state) != Converter:
@@ -462,12 +511,15 @@ def voice_processing(message: Message) -> None:
 # noinspection PyTypeChecker
 @bot.message_handler(content_types=["text"])
 def message_handler(message: Message) -> None:
+    """
+    Message handler for the text messages
+    """
 
     actions_dict = {Reference: store_spotify_link, Change_phone_number: update_phone_number,
                     Reference_tempo: send_references, Authorization: authorization,
 
                     Recording: store_title,
-                    AdditionalInfo: store_add_info, Confirmed: send_order,
+                    AdditionalInfo: store_add_info, Confirmed: get_user_order,
 
                     Ghostwriting: store_title, GetReferences: store_references,
                     One_more: store_references,
@@ -497,6 +549,9 @@ def message_handler(message: Message) -> None:
 
 @bot.message_handler(content_types=["audio", "document"])
 def file_handler(message: Message) -> None:
+    """
+    Message handler for the audio and documents
+    """
 
     current_state: BaseState = USER_STEP[message.chat.id]
 
@@ -515,6 +570,9 @@ def file_handler(message: Message) -> None:
 
 @bot.message_handler(content_types=["sticker"])
 def sticker(message: Message) -> None:
+    """
+    Message handler for the stickers
+    """
     logger.info(str(message.chat.first_name) + " [" + str(message.chat.id) + "]: " + '"Відправлено стікер"')
     bot.send_message(message.chat.id, "Ти відправив стікер 😁")
     markup_handler(message.chat.id)
@@ -522,6 +580,10 @@ def sticker(message: Message) -> None:
 
 @bot.message_handler(content_types=["photo", "video", "video_note", "location", "contact", "animation"])
 def invalid_input(message: Type[telebot.types.Message]) -> None:
+    """
+    Message handler for other content types that are not expected from user
+    """
+
     logger.warning(str(message.chat.first_name) + " [" + str(message.chat.id) + "]: " +
                    '"Відправлено неправильний тип данних"')
     bot.send_message(message.chat.id, "Я не розумію 😁")
