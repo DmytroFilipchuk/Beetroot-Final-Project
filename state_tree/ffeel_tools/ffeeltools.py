@@ -9,7 +9,7 @@ class FFeelTools(BaseState):
         self.buttons = [("Підібрати референси 🎵", 'reference'), ('Конвертер голосових повідомлень 🔈', 'converter'),
                         ("Назад ↩️", "back")]
 
-    def process(self, txt='', authorized=bool) -> 'BaseState':
+    def process(self, txt='', mark=bool) -> 'BaseState':
 
         if txt == 'reference':
             from state_tree.ffeel_tools.reference import Reference
@@ -20,5 +20,5 @@ class FFeelTools(BaseState):
             return Converter()
 
         if txt == "back":
-            from state_tree.main_menu import Main_menu
-            return Main_menu()
+            from state_tree.main_menu import MainMenu
+            return MainMenu()

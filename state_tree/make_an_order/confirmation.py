@@ -11,7 +11,7 @@ class ConfirmOrder(BaseState):
                         ('Ні ❌', 'no'),
                         ("Назад ↩️", "back")]
 
-    def process(self, txt='', authorized = bool) -> 'BaseState':
+    def process(self, txt='', mark = bool) -> 'BaseState':
 
         if txt == 'yes':
             from state_tree.make_an_order.confirmed import Confirmed

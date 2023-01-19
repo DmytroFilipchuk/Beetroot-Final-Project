@@ -23,7 +23,7 @@ class Questions(BaseState):
                         ("5️⃣", "five"),
                         ("Назад ↩️", "back")]
 
-    def process(self, txt='', authorized=bool) -> 'BaseState':
+    def process(self, txt='', mark=bool) -> 'BaseState':
         if txt == "one":
             from state_tree.question_answers.one import One
             return One()

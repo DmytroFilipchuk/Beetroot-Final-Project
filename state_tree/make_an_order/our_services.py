@@ -11,7 +11,7 @@ class OurServices(BaseState):
                         ('Сесійний музикант  🎼  ', 'session_musician'),
                         ("Головне меню 🎡", "menu"), ("Назад ↩️", "back")]
 
-    def process(self, txt='', authorized=bool) -> 'BaseState':
+    def process(self, txt='', mark=bool) -> 'BaseState':
         if txt == 'recording':
             from state_tree.make_an_order.recording_section import Recording
             return Recording()
@@ -25,8 +25,8 @@ class OurServices(BaseState):
             return SessionMusician()
 
         if txt == "menu":
-            from state_tree.main_menu import Main_menu
-            return Main_menu()
+            from state_tree.main_menu import MainMenu
+            return MainMenu()
 
         if txt == "back":
             from state_tree.make_an_order.client import Client

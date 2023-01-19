@@ -15,10 +15,10 @@ class Five(BaseState):
         self.buttons = [("Головне меню 🎡", "menu"),
                         ("Назад до списку ↩️", "questions")]
 
-    def process(self, txt='', authorized=bool) -> 'BaseState':
+    def process(self, txt='', mark=bool) -> 'BaseState':
         if txt == "menu":
-            from state_tree.main_menu import Main_menu
-            return Main_menu()
+            from state_tree.main_menu import MainMenu
+            return MainMenu()
 
         if txt == 'questions':
             from state_tree.make_an_order.question_list import Questions

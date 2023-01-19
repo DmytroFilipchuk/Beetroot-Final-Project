@@ -10,7 +10,7 @@ class Client(BaseState):
                         ('Популярні питання ⁉️', 'questions'),
                         ("Назад ↩️", "back")]
 
-    def process(self, txt='', authorized=bool) -> 'BaseState':
+    def process(self, txt='', mark=bool) -> 'BaseState':
         if txt == 'services':
             from state_tree.make_an_order.our_services import OurServices
             return OurServices()
@@ -20,5 +20,5 @@ class Client(BaseState):
             return Questions()
 
         if txt == "back":
-            from state_tree.main_menu import Main_menu
-            return Main_menu()
+            from state_tree.main_menu import MainMenu
+            return MainMenu()

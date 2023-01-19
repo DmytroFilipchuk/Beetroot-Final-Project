@@ -1,7 +1,7 @@
 from state_tree.base_state import BaseState
 
 
-class Main_menu(BaseState):
+class MainMenu(BaseState):
     msg = 'Чим я можу тобі допомогти?\N{eyes}'
 
     def __init__(self):
@@ -11,7 +11,7 @@ class Main_menu(BaseState):
                         ("Налаштування ⚙️", "settings"),
                         ("Про нас 🫂", "about")]
 
-    def process(self, txt='', authorized=bool) -> 'BaseState':
+    def process(self, txt='', mark=bool) -> 'BaseState':
 
         if txt == 'client':
             from state_tree.make_an_order.client import Client

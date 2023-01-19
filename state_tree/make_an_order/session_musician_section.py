@@ -9,10 +9,10 @@ class SessionMusician(BaseState):
         super().__init__()
         self.buttons = [("Головне меню 🎡", "menu"), ("Назад ↩️", "back")]
 
-    def process(self, txt='', authorized = bool) -> 'BaseState':
+    def process(self, txt='', mark = bool) -> 'BaseState':
         if txt == "menu":
-            from state_tree.main_menu import Main_menu
-            return Main_menu()
+            from state_tree.main_menu import MainMenu
+            return MainMenu()
         if txt == "back":
             from state_tree.make_an_order.our_services import OurServices
             return OurServices()

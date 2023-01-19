@@ -4,9 +4,9 @@ class Authorization(BaseState):
 
     msg = ' Напиши свій номер телефону у форматі +380... для авторизації 📝}'
 
-    def process(self, txt = '', authorized = bool) -> 'BaseState':
-        from state_tree.main_menu import Main_menu
-        return Main_menu()
+    def process(self, txt = '', mark = bool) -> 'BaseState':
+        from state_tree.main_menu import MainMenu
+        return MainMenu()
 
 
 
@@ -29,9 +29,9 @@ class Start(BaseState):
 Давай розпочнемо!"""
 
 
-    def process(self, txt = '', authorized = bool) -> 'BaseState':
-        if authorized is True:
-            from state_tree.main_menu import Main_menu
-            return Main_menu()
+    def process(self, txt = '', mark = bool) -> 'BaseState':
+        if mark is True:
+            from state_tree.main_menu import MainMenu
+            return MainMenu()
         else:
             return Authorization()

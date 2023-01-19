@@ -8,6 +8,6 @@ class Confirmed(BaseState):
 P.S. Після відправки замовлення очікуй на повідомлення 
 (в межах 24 годин ⏱)"""
 
-    def process(self, txt='', authorized = bool) -> 'BaseState':
-        from state_tree.main_menu import Main_menu
-        return Main_menu()
+    def process(self, txt='', mark = bool) -> 'BaseState':
+        from state_tree.main_menu import MainMenu
+        return MainMenu()

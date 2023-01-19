@@ -11,7 +11,7 @@ class AboutUs(BaseState):
                         ("Вебсайт 🖥", "website"),
                         ("Головне меню 🎡", "menu")]
 
-    def process(self, txt='', authorized=bool) -> 'BaseState':
+    def process(self, txt='', mark=bool) -> 'BaseState':
 
         if txt == "contact":
             from state_tree.about_section.contact_info import Contact_info
@@ -26,5 +26,5 @@ class AboutUs(BaseState):
             return Website()
 
         if txt == "menu":
-            from state_tree.main_menu import Main_menu
-            return Main_menu()
+            from state_tree.main_menu import MainMenu
+            return MainMenu()

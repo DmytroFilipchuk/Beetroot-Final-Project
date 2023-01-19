@@ -406,7 +406,7 @@ def command_start(message: Message) -> None:
     bot.send_message(message.chat.id, current_state.msg, parse_mode="HTML")
 
     if is_in_database(message.from_user.id):
-        USER_STEP[message.chat.id] = USER_STEP[message.chat.id].process(authorized=True)
+        USER_STEP[message.chat.id] = USER_STEP[message.chat.id].process(mark=True)
     else:
         USER_STEP[message.chat.id] = USER_STEP[message.chat.id].process()
 
@@ -539,7 +539,7 @@ def message_handler(message: Message) -> None:
 
         else:
 
-            new_state: BaseState = current_state.process(txt=message.text, authorized=True)
+            new_state: BaseState = current_state.process(txt=message.text, mark=True)
             USER_STEP[message.chat.id] = new_state
             markup_handler(message.chat.id)
     else:
