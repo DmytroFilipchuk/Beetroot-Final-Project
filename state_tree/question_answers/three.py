@@ -2,16 +2,16 @@ from state_tree.base_state import BaseState
 
 
 class Three(BaseState):
-    msg = """Ось відповідь на питання №3 👇
+    msg = """ Here is the answer to question #3 👇
 
-Так, це цілком ймовірно при умові покриття витрат на дорогу️.  
+Yes, this is possible, provided that the travel costs are covered.
 
     """
 
     def __init__(self):
         super().__init__()
-        self.buttons = [("Головне меню 🎡", "menu"),
-                        ("Назад до списку ↩️", "questions")]
+        self.buttons = [("Main Menu 🎡", "menu"),
+                        ("Choose a different question ↩️", "questions")]
 
     def process(self, txt='', mark=bool) -> 'BaseState':
         if txt == "menu":

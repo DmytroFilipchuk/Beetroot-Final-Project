@@ -3,11 +3,11 @@ from state_tree.base_state import BaseState
 
 class Deadline(BaseState):
 
-    msg = "Обери бажаний дедлайн 🕒  "
+    msg = "Select the desired deadline 🕒  "
 
     def __init__(self):
         super().__init__()
-        self.buttons = [("Відкрити календар 📅", "calendar") , ("Головне меню 🎡", "menu")]
+        self.buttons = [("Open the calendar 📅", "calendar") , ("Main Menu 🎡", "menu")]
 
     def process(self, txt='', mark = bool) -> 'BaseState':
 

@@ -3,13 +3,13 @@ from state_tree.base_state import BaseState
 
 class ConfirmOrder(BaseState):
 
-    msg = "Підтверджуєте правильність данних?  📑 "
+    msg = "Do you confirm the accuracy of the data? 📑 "
 
     def __init__(self):
         super().__init__()
-        self.buttons = [("Так ✅", 'yes'),
-                        ('Ні ❌', 'no'),
-                        ("Назад ↩️", "back")]
+        self.buttons = [("Yes ✅", 'yes'),
+                        ('No ❌', 'no'),
+                        ("Back ↩️", "back")]
 
     def process(self, txt='', mark = bool) -> 'BaseState':
 

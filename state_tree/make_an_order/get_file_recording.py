@@ -3,11 +3,11 @@ from state_tree.base_state import BaseState
 
 class GetFileRecording(BaseState):
 
-    msg = "Надішли аудіо або GuitarPro7 файл 💾"
+    msg = "Send audio or a GuitarPro7 file 💾"
 
     def __init__(self):
         super().__init__()
-        self.buttons = [("Головне меню 🎡", "menu"), ("Назад ↩️", "back")]
+        self.buttons = [("Main Menu 🎡", "menu"), ("Back ↩️", "back")]
 
     def process(self, txt='', mark = bool) -> 'BaseState':
         if txt == "menu":

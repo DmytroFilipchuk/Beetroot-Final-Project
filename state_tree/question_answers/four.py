@@ -2,19 +2,19 @@ from state_tree.base_state import BaseState
 
 
 class Four(BaseState):
-    msg = """Ось відповідь на питання №4 👇
+    msg = """Here is the answer to question #4 👇
 
-Мастеринг відбувається за додаткову плату.
+We do not provide mastering services
  
-Якщо ви обрали послугу "трек під ключ" - в кінці ви отримуєте демо-трек
-(мінімально зведений) + потрековка проекту.
+If you choose the "ghostwriting" service, at the end you will receive a demo track
+(minimally mixed) + project stems.
 
     """
 
     def __init__(self):
         super().__init__()
-        self.buttons = [("Головне меню 🎡", "menu"),
-                        ("Назад до списку ↩️", "questions")]
+        self.buttons = [("Main Menu 🎡", "menu"),
+                        ("Choose a different question ↩️", "questions")]
 
     def process(self, txt='', mark=bool) -> 'BaseState':
         if txt == "menu":

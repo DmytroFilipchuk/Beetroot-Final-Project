@@ -2,18 +2,18 @@ from state_tree.base_state import BaseState
 
 
 class Five(BaseState):
-    msg = """Ось відповідь на питання №5 👇
+    msg = """Here is the answer to question #5 👇
 
-Перша частина оплати відбувається після того як одобрено 1 хв 30 сек пісні.
+The first part of the payment is made after 1 min 30 sec of the song is approved.
 
-Друга половина платиться після завершення роботи.
+The second half is paid upon completion of the work.
 
     """
 
     def __init__(self):
         super().__init__()
-        self.buttons = [("Головне меню 🎡", "menu"),
-                        ("Назад до списку ↩️", "questions")]
+        self.buttons = [("Main Menu 🎡", "menu"),
+                        ("Choose a different question ↩️", "questions")]
 
     def process(self, txt='', mark=bool) -> 'BaseState':
         if txt == "menu":

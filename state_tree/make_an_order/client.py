@@ -2,13 +2,13 @@ from state_tree.base_state import BaseState
 
 
 class Client(BaseState):
-    msg = "Вітаю в секції клієнта! 👨🏼‍💻"
+    msg = "Welcome to the customer section! 👨🏼‍💻"
 
     def __init__(self):
         super().__init__()
-        self.buttons = [("Cписок послуг 🗒", 'services'),
-                        ('Популярні питання ⁉️', 'questions'),
-                        ("Назад ↩️", "back")]
+        self.buttons = [("List of services 🗒", 'services'),
+                        ('Frequently asked questions ⁉️', 'questions'),
+                        ("Back ↩️", "back")]
 
     def process(self, txt='', mark=bool) -> 'BaseState':
         if txt == 'services':

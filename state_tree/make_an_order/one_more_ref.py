@@ -3,11 +3,11 @@ from state_tree.base_state import BaseState
 
 class One_more(BaseState):
 
-    msg = "Ще один 1️⃣"
+    msg = "One more 1️⃣"
 
     def __init__(self):
         super().__init__()
-        self.buttons = [("Головне меню 🎡", "menu")]
+        self.buttons = [("Main Menu 🎡", "menu")]
 
     def process(self, txt='', mark = bool) -> 'BaseState':
 

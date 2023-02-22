@@ -2,17 +2,18 @@ from state_tree.base_state import BaseState
 
 
 class Two(BaseState):
-    msg = """Ось відповідь на питання №2 👇
+    msg = """Here is the answer to question #2 👇
 
-Так, звісно! Після оформлення Твого замовлення відповідну зустріч
-можна буде обговорити. Моя студія знаходиться ось тут ⤴️
+Yes, of course! After placing your order, a suitable meeting
+can be discussed. My studio is located here ⤴️
+
 
     """
 
     def __init__(self):
         super().__init__()
-        self.buttons = [("Головне меню 🎡", "menu"),
-                        ("Назад до списку ↩️", "questions")]
+        self.buttons = [("Main Menu 🎡", "menu"),
+                        ("Choose a different question ↩️", "questions")]
 
     def process(self, txt='', mark=bool) -> 'BaseState':
         if txt == "menu":

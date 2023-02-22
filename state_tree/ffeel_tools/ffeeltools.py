@@ -2,11 +2,11 @@ from state_tree.base_state import BaseState
 
 
 class FFeelTools(BaseState):
-    msg = "Вітаю в секції FFeelTools!\N{ghost}"
+    msg = "Welcome to the FFeelTools section!\N{ghost}"
 
     def __init__(self):
         super().__init__()
-        self.buttons = [("Підібрати референси 🎵", 'reference'), ('Конвертер голосових повідомлень 🔈', 'converter'),
+        self.buttons = [("Filter playlist by tempo 🎵", 'reference'), ('Converter of voice messages 🔈', 'converter'),
                         ("Назад ↩️", "back")]
 
     def process(self, txt='', mark=bool) -> 'BaseState':

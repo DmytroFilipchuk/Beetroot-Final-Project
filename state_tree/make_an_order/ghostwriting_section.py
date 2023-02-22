@@ -2,12 +2,12 @@ from state_tree.base_state import BaseState
 
 
 class Ghostwriting(BaseState):
-    msg = "Давай знайомитись! " \
-          "Напиши назву колективу/виконавця ✏️"
+    msg = "Let's get to know each other! " \
+          "Enter the name of the band/performer✏️"
 
     def __init__(self):
         super().__init__()
-        self.buttons = [("Головне меню 🎡", "menu"), ("Назад ↩️", "back")]
+        self.buttons = [("Main Menu 🎡", "menu"), ("Back ↩️", "back")]
 
     def process(self, txt='', mark=bool) -> 'BaseState':
         if txt == "menu":

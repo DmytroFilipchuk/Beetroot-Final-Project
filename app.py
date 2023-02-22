@@ -62,8 +62,8 @@ calendar_1_callback = CallbackData("calendar_1", "action", "year", "month", "day
 
 # available bot commands (shown when user prints /help)
 help_commands = {
-    'start': 'Знайомство з ботом 🦾',
-    'help': 'Дізнайся про всі доступні команди 🗣'}
+    'start': 'Get to know the bot better 🦾',
+    'help': 'Learn about all the available commands 🗣'}
 
 
 def listener(messages: list) -> None:
@@ -115,7 +115,7 @@ def authorization(message: Message) -> bool:
             bot.send_chat_action(message.chat.id, 'typing')  # show the bot "typing" (max. 5 secs)
             time.sleep(1)
 
-            bot.send_message(message.chat.id, 'Успішно зареєстровано ✅')
+            bot.send_message(message.chat.id, 'Successfully registered! ✅')
 
             return True
 
@@ -136,7 +136,7 @@ def update_phone_number(message: Message) -> bool:
             bot.send_chat_action(message.chat.id, 'typing')  # show the bot "typing" (max. 5 secs)
             time.sleep(1)
 
-            bot.send_message(message.chat.id, 'Успішно змінено! ✅')
+            bot.send_message(message.chat.id, 'Successfully updated! ✅')
             return True
 
     return False
@@ -211,16 +211,16 @@ def store_title(message: Message) -> bool:
     current_state: BaseState = USER_STEP[message.chat.id]
 
     if isinstance(current_state, Recording):
-        ORDER_INFO['Послуга📍'] = 'Запис партії'
+        ORDER_INFO['Service📍'] = 'Record for Me'
 
     elif isinstance(current_state, Ghostwriting):
-        ORDER_INFO['Послуга📍'] = 'Гоустрайтинг'
+        ORDER_INFO['Service📍'] = 'Ghostwriting'
 
     elif isinstance(current_state, SessionMusician):
-        ORDER_INFO['Послуга📍'] = 'Сесійний музикант'
+        ORDER_INFO['Service📍'] = 'Session Musician'
 
     band_title = message.text
-    ORDER_INFO['Назва✏️'] = band_title
+    ORDER_INFO['Name/Title✏️'] = band_title
 
     USER_STEP[message.chat.id] = USER_STEP[message.chat.id].process()
 
@@ -233,7 +233,7 @@ def store_deadline(date: str) -> bool:
     into the ORDER_INFO dict
     """
     deadline = date
-    ORDER_INFO['Дедлайн⏱'] = deadline
+    ORDER_INFO['Deadline⏱'] = deadline
 
     return True
 
@@ -245,7 +245,7 @@ def store_add_info(message: Message) -> bool:
     """
 
     info = message.text
-    ORDER_INFO['Додаткова інформація🗒'] = info
+    ORDER_INFO['Additional info🗒'] = info
 
     return True
 
@@ -258,27 +258,27 @@ def get_user_order(message: Message) -> bool:
     if message.text != 'FFeel':
         return False
 
-    order = f'Замовлення від @{message.from_user.username} 🎹: \n\n'
+    order = f'Order from @{message.from_user.username} 🎹: \n\n'
 
     for key, value in ORDER_INFO.items():
         order += f"{key} - {value} \n\n"
 
     bot.send_message(MY_ID, order)
 
-    if ORDER_INFO['Послуга📍'] == 'Запис партії':
+    if ORDER_INFO['Service📍'] == 'Record for Me':
         bot.forward_message(FORWARD_FILE[0], FORWARD_FILE[1],
                             FORWARD_FILE[2])
 
-    elif ORDER_INFO['Послуга📍'] == 'Гоустрайтинг':
+    elif ORDER_INFO['Service📍'] == 'Ghostwriting':
 
         for reference in REFERENCES:
             bot.send_message(MY_ID, reference)
 
-    elif ORDER_INFO['Послуга📍'] == 'Сесійний музикант':
+    elif ORDER_INFO['Service📍'] == 'Session Musician':
         bot.forward_message(FORWARD_FILE[0], FORWARD_FILE[1],
                             FORWARD_FILE[2])
 
-    bot.send_message(message.chat.id, "Замовлення відправлено! ✅")
+    bot.send_message(message.chat.id, "The order has been sent! ✅")
 
     return True
 
@@ -291,7 +291,7 @@ def make_calendar(message: Message) -> None:
 
     bot.send_message(
         message.chat.id,
-        "Календар👇",
+        "Calendar👇",
         reply_markup=calendar.create_calendar(
             name=calendar_1_callback.prefix,
             year=now.year,
@@ -325,7 +325,7 @@ def send_my_spotify_playlist(message: Message) -> bool:
 
     bot.send_message(message.chat.id,
                      text="<a href='https://open.spotify.com/playlist/6Ud9RGICEhn84flFAfFeTM?si=c4a6827a19e34a3f'>"
-                          "Перейти до плейлисту 🖱</a>",
+                          "Open the playlist 🖱</a>",
                      parse_mode="HTML")
 
     USER_STEP[message.chat.id] = USER_STEP[message.chat.id].process()
@@ -339,7 +339,7 @@ def send_my_website(message: Message) -> bool:
     """
 
     bot.send_message(message.chat.id,
-                     text="<a href='http://project6565316.tilda.ws/'>Перейти до вебсайту ⌨️</a>",
+                     text="<a href='http://project6565316.tilda.ws/'>Open the website ⌨️</a>",
                      parse_mode="HTML")
 
     USER_STEP[message.chat.id] = USER_STEP[message.chat.id].process()
@@ -367,7 +367,7 @@ def callback_calendar(call: CallbackQuery) -> None:
 
         bot.send_message(
             chat_id=call.from_user.id,
-            text=f"Ти обрав {date.strftime('%d.%m.%Y')}",
+            text=f"You have chosen {date.strftime('%d.%m.%Y')}",
             reply_markup=ReplyKeyboardRemove(),
         )
 
@@ -418,7 +418,7 @@ def help_command(message: Message) -> None:
     """
     Help command
     """
-    help_text = "Тобі доступні наступні команди: \n\n"
+    help_text = "The following commands are available to you: \n\n"
 
     for key in help_commands:
         help_text += "/" + key + ": "
@@ -561,7 +561,7 @@ def file_handler(message: Message) -> None:
 
     else:
 
-        logger.info(str(message.chat.first_name) + " [" + str(message.chat.id) + "]: " + '"Файл відправлено"')
+        logger.info(str(message.chat.first_name) + " [" + str(message.chat.id) + "]: " + '"File sent"')
 
         FORWARD_FILE.extend([862438449, message.chat.id, message.id])
         USER_STEP[message.chat.id] = USER_STEP[message.chat.id].process()
@@ -573,8 +573,8 @@ def sticker(message: Message) -> None:
     """
     Message handler for the stickers
     """
-    logger.info(str(message.chat.first_name) + " [" + str(message.chat.id) + "]: " + '"Відправлено стікер"')
-    bot.send_message(message.chat.id, "Ти відправив стікер 😁")
+    logger.info(str(message.chat.first_name) + " [" + str(message.chat.id) + "]: " + '"Sticker sent"')
+    bot.send_message(message.chat.id, "You have sent a sticker 😁")
     markup_handler(message.chat.id)
 
 
@@ -585,8 +585,8 @@ def invalid_input(message: Type[telebot.types.Message]) -> None:
     """
 
     logger.warning(str(message.chat.first_name) + " [" + str(message.chat.id) + "]: " +
-                   '"Відправлено неправильний тип данних"')
-    bot.send_message(message.chat.id, "Я не розумію 😁")
+                   '"Invalid data type sent"')
+    bot.send_message(message.chat.id, "I don't understand 😁")
     markup_handler(message.chat.id)
 
 

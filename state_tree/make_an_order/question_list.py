@@ -2,16 +2,16 @@ from state_tree.base_state import BaseState
 
 
 class Questions(BaseState):
-    msg = """ Ось список актуальних питань👇
+    msg = """Here is a list of frequently asked questions👇
     
-1. Як швидко буде виконана робота (запис/трек під ключ)❓
-2. Чи можна домовитись про "живу" зустріч❓
-3. Чи можна скористатить послугою сесійного музиканта в інших містах❓
-4. Чи входить мастеринг треку в оплату послуги "трек під ключ"❓
-5. Як проходить оплата❓
+1. How quickly will the work be done (Record for Me / Ghostwriting)❓
+2. Is it possible to arrange a "live" meeting❓
+3. Is it possible to use the services of a session musician in other cities❓
+4. Is track mastering included in the payment for the ghostwriting service❓
+5. How is the payment made❓
 
 
-Вибери номер актуального питання, яке тебе цікавить 👇    
+Select the number of the question you are interested in 👇 
    """
 
     def __init__(self):

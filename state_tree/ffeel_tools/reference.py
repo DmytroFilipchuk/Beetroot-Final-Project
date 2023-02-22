@@ -2,11 +2,11 @@ from state_tree.base_state import BaseState
 
 
 class Reference(BaseState):
-    msg = "Очікую посилання на Spotify плейлист від тебе 🎤"
+    msg = "Waiting for a link to the Spotify playlist from you 🎤"
 
     def __init__(self):
         super().__init__()
-        self.buttons = [("Головне меню 🎡", "menu"), ("Назад ↩️", "back")]
+        self.buttons = [("Main Menu 🎡", "menu"), ("Back ↩️", "back")]
 
     def process(self, txt='', mark=bool) -> 'BaseState':
         if txt == "menu":

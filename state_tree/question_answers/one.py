@@ -2,16 +2,16 @@ from state_tree.base_state import BaseState
 
 
 class One(BaseState):
-    msg = """Ось відповідь на питання №1 👇
+    msg = """Here is the answer to question #1 👇.
     
-В залежності від обсягу та к-сті замовлень - від 3 днів до двох тижнів.
+Depending on the amount of work and the number of orders - from 3 days to two weeks.
       
     """
 
     def __init__(self):
         super().__init__()
-        self.buttons = [("Головне меню 🎡", "menu"),
-                        ("Назад до списку ↩️", "questions")]
+        self.buttons = [("Main Menu 🎡", "menu"),
+                        ("Choose a different question ↩️", "questions")]
 
     def process(self, txt='', mark=bool) -> 'BaseState':
         if txt == "menu":

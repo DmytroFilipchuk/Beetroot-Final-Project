@@ -2,14 +2,14 @@ from state_tree.base_state import BaseState
 
 
 class MainMenu(BaseState):
-    msg = 'Чим я можу тобі допомогти?\N{eyes}'
+    msg = 'How can I help you?\N{eyes}'
 
     def __init__(self):
         super().__init__()
-        self.buttons = [("Зробити замовлення 📀", 'client'),
+        self.buttons = [("Place an order 📀", 'client'),
                         ('FFeelTools 🎹', 'ffeeltools'),
-                        ("Налаштування ⚙️", "settings"),
-                        ("Про нас 🫂", "about")]
+                        ("Settings ⚙️", "settings"),
+                        ("About Us 🫂", "about")]
 
     def process(self, txt='', mark=bool) -> 'BaseState':
 

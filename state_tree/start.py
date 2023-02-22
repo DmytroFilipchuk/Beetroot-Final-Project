@@ -2,7 +2,7 @@ from state_tree.base_state import BaseState
 
 class Authorization(BaseState):
 
-    msg = ' Напиши свій номер телефону у форматі +380... для авторизації 📝}'
+    msg = 'Enter your phone number in the following format -  +380... for authorization 📝'
 
     def process(self, txt = '', mark = bool) -> 'BaseState':
         from state_tree.main_menu import MainMenu

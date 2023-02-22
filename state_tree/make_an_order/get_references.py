@@ -3,17 +3,17 @@ from state_tree.base_state import BaseState
 
 class GetReferences(BaseState):
 
-    msg = """Тепер перейдемо до референсів 🔗 
+    msg = """Now let's move on to the references 🔗 
 
-Надішли посилання на треки-референси (3️⃣ посилання) 
+Send links to the reference tracks (3️⃣ link)
     
     
     """
 
     def __init__(self):
         super().__init__()
-        self.buttons = [("Головне меню 🎡", "menu"),
-                        ("Назад ↩️", "back")]
+        self.buttons = [("Main Menu 🎡", "menu"),
+                        ("Back ↩️", "back")]
 
     def process(self, txt='', mark = bool) -> 'BaseState':
         if txt == "menu":

@@ -2,14 +2,14 @@ from state_tree.base_state import BaseState
 
 
 class OurServices(BaseState):
-    msg = 'Перелік послуг 📌'
+    msg = 'List of services 📌'
 
     def __init__(self):
         super().__init__()
-        self.buttons = [("Запис партії 🎸", 'recording'),
-                        ('Гоуст-райтинг 🎧', 'ghost_writer'),
-                        ('Сесійний музикант  🎼  ', 'session_musician'),
-                        ("Головне меню 🎡", "menu"), ("Назад ↩️", "back")]
+        self.buttons = [("Record for Me 🎸", 'recording'),
+                        ('Ghostwriting 🎧', 'ghost_writer'),
+                        ('Session Musician  🎼  ', 'session_musician'),
+                        ("Main Menu 🎡", "menu"), ("Назад ↩️", "back")]
 
     def process(self, txt='', mark=bool) -> 'BaseState':
         if txt == 'recording':
@@ -31,3 +31,5 @@ class OurServices(BaseState):
         if txt == "back":
             from state_tree.make_an_order.client import Client
             return Client()
+
+

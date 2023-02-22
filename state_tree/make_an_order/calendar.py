@@ -2,7 +2,7 @@ from state_tree.base_state import BaseState
 
 
 class Create_calendar(BaseState):
-    msg = "Обери дату 🗓"
+    msg = "Select a date 🗓"
 
 
     def process(self, txt='', mark=bool) -> 'BaseState':

@@ -2,14 +2,14 @@ from state_tree.base_state import BaseState
 
 
 class AboutUs(BaseState):
-    msg = "Про нас👇️"
+    msg = "About Us👇️"
 
     def __init__(self):
         super().__init__()
-        self.buttons = [("Контакт ☎️", "contact"),
-                        ("Наш плейлист в Spotify 🔊 ", "playlist_spotify"),
-                        ("Вебсайт 🖥", "website"),
-                        ("Головне меню 🎡", "menu")]
+        self.buttons = [("Contacts ☎️", "contact"),
+                        ("Spotify Playlist 🔊 ", "playlist_spotify"),
+                        ("Website 🖥", "website"),
+                        ("Main Menu 🎡", "menu")]
 
     def process(self, txt='', mark=bool) -> 'BaseState':
 

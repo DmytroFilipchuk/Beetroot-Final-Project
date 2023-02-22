@@ -2,11 +2,11 @@ from state_tree.base_state import BaseState
 
 
 class Settings(BaseState):
-    msg = "Меню налаштувань👇️"
+    msg = "Settings Menu 👇️"
 
     def __init__(self):
         super().__init__()
-        self.buttons = [("Змінити номер телефону 📞", "phone_number"), ("Головне меню 🎡", "menu")]
+        self.buttons = [("Change phone number 📞", "phone_number"), ("Main Menu 🎡", "menu")]
 
     def process(self, txt='', mark=bool) -> 'BaseState':
         if txt == "phone_number":

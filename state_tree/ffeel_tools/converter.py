@@ -4,11 +4,11 @@ from state_tree.base_state import BaseState
 
 class Converter(BaseState):
 
-    msg = "Чекаю на твоє голосове повідомлення 🎙"
+    msg = "Waiting for your voice message 🎙"
 
     def __init__(self):
         super().__init__()
-        self.buttons = [("Головне меню 🎡", "menu"), ("Назад ↩️", "back")]
+        self.buttons = [("Main Menu 🎡", "menu"), ("Back ↩️", "back")]
 
     def process(self, txt = '', mark = bool) -> 'BaseState':
         if txt == "menu":
