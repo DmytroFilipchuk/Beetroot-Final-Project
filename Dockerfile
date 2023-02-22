@@ -6,9 +6,12 @@ WORKDIR /Beetroot-Final-Project
 
 COPY . /Beetroot-Final-Project
 
+RUN set -xe \
+    && apt-get update \
+    && apt-get install python3-pip
+RUN pip install --upgrade pip
 RUN pip install -r requirements.txt
 RUN apt-get update && apt-get install -y ffmpeg
-RUN apt-get install -y python3.10
 
-CMD ["python3.10", "app.py"]
+CMD ["python3", "app.py"]
 
