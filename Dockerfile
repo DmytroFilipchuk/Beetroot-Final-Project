@@ -4,6 +4,6 @@ ENV DEBIAN_FRONTEND=noninteractive
 
 RUN apt-get update && apt-get install -y ffmpeg
 RUN apt-get install -y python3.10
-ENTRYPOINT ["python3"]
-CMD["python3", "app.py"]
+
+CMD["python", "app.py"]
 
