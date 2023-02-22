@@ -1,2 +1,2 @@
 FROM ubuntu
-RUN sudo apt install ffmpeg
+RUN apt install ffmpeg
