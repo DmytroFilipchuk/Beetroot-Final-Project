@@ -15,7 +15,7 @@ class Authorization(BaseState):
 class Start(BaseState):
 
     msg = """Привіт! 😁 Я - твій помічник від <a href=
-    'http://ffeelmusic.tilda.ws'>FFeel Music Records</a>
+    'http://ffeelmusic.tilda.ws/'>FFeel Music Records</a>
 
 До мене ти можеш звертатись з приводу замовлень 
 або ж скористатись спецільними FFeelTools 🎹 
