@@ -14,19 +14,18 @@ class Authorization(BaseState):
 
 class Start(BaseState):
 
-    msg = """Привіт! 😁 Я - твій помічник від <a href=
+    msg = """Hello! 😁 I am your assistant from <a href=
     'http://ffeelmusic.tilda.ws/'>FFeel Music Records</a>
 
-До мене ти можеш звертатись з приводу замовлень 
-або ж скористатись спецільними FFeelTools 🎹 
+You can use me to place orders or use special FFeelTools 🎹 
 
-Але я ще дуже молодий, тому якщо у тебе виникнуть складнощі
-в роботі, напиши сюди - @philipchuk_d 📲
+But I am still very young, so if you have any difficulties, 
+just send a text message to - @philipchuk_d 📲
 
 <a href=
-    'https://open.spotify.com/playlist/6Ud9RGICEhn84flFAfFeTM?si=c4a6827a19e34a3f'>Наш Spotify плейлист 😎</a>
+    'https://open.spotify.com/playlist/6Ud9RGICEhn84flFAfFeTM?si=c4a6827a19e34a3f'>Our Spotify playlist 😎</a>
 
-Давай розпочнемо!"""
+Let's get started!"""
 
 
     def process(self, txt = '', mark = bool) -> 'BaseState':
