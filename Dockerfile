@@ -1,6 +1,5 @@
-RUN set -x \
-    && add-apt-repository ppa:mc3man/trusty-media \
-    && apt-get update \
-    && apt-get dist-upgrade \
-    && apt-get install -y --no-install-recommends \
-        ffmpeg \
+FROM ubuntu:18.04
+
+ENV DEBIAN_FRONTEND=noninteractive
+
+RUN apt-get update && apt-get install -y ffmpeg
