@@ -170,7 +170,7 @@ def send_references(message: Message) -> bool:
         bot.send_chat_action(message.chat.id, 'typing')  # show the bot "typing" (max. 5 secs)
         time.sleep(1)
 
-        filtered = f"🎹 Songs with tempo in range {int(tempo)-10} - {int(tempo)+10} BPM\n\n"
+        filtered = f"🎹 Songs with tempo in range {int(tempo)-10} - {int(tempo)+10} BPM:\n\n"
 
         for artist, song in get_songs(SPOTIFY_LINK, message.text).items():
             filtered += f'✅{artist} - {song}\n'
