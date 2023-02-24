@@ -5,8 +5,14 @@ class Authorization(BaseState):
     msg = 'Enter your phone number in the following format -  +380... for authorization 📝'
 
     def process(self, txt = '', mark = bool) -> 'BaseState':
-        from state_tree.main_menu import MainMenu
-        return MainMenu()
+        from buttons_dict import buttons_dict
+        if txt in buttons_dict.keys():
+            return buttons_dict[txt]()
+        else:
+            from state_tree.main_menu import MainMenu
+            return MainMenu()
+
+
 
 
 
@@ -32,5 +38,8 @@ Let's get started!"""
         if mark is True:
             from state_tree.main_menu import MainMenu
             return MainMenu()
+        from buttons_dict import buttons_dict
+        if txt in buttons_dict.keys():
+            return buttons_dict[txt]()
         else:
             return Authorization()

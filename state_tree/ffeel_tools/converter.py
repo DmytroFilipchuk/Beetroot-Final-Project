@@ -11,9 +11,9 @@ class Converter(BaseState):
         self.buttons = [("Main Menu 🎡", "menu"), ("Back ↩️", "back")]
 
     def process(self, txt = '', mark = bool) -> 'BaseState':
-        if txt == "menu":
-            from state_tree.main_menu import MainMenu
-            return MainMenu()
+        from buttons_dict import buttons_dict
+        if txt in buttons_dict.keys():
+            return buttons_dict[txt]()
         if txt == "back":
             from state_tree.ffeel_tools.ffeeltools import FFeelTools
             return FFeelTools()

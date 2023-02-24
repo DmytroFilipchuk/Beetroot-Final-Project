@@ -12,19 +12,9 @@ class AboutUs(BaseState):
                         ("Main Menu 🎡", "menu")]
 
     def process(self, txt='', mark=bool) -> 'BaseState':
+        from buttons_dict import buttons_dict
+        if txt in buttons_dict.keys():
+            return buttons_dict[txt]()
 
-        if txt == "contact":
-            from state_tree.about_section.contact_info import Contact_info
-            return Contact_info()
 
-        if txt == "playlist_spotify":
-            from state_tree.about_section.our_playlist import MyPlaylist
-            return MyPlaylist()
 
-        if txt == "website":
-            from state_tree.about_section.website import Website
-            return Website()
-
-        if txt == "menu":
-            from state_tree.main_menu import MainMenu
-            return MainMenu()

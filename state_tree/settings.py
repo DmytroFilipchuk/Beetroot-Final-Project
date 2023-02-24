@@ -9,10 +9,8 @@ class Settings(BaseState):
         self.buttons = [("Change phone number 📞", "phone_number"), ("Main Menu 🎡", "menu")]
 
     def process(self, txt='', mark=bool) -> 'BaseState':
-        if txt == "phone_number":
-            from state_tree.change_phone_number import Change_phone_number
-            return Change_phone_number()
+        from buttons_dict import buttons_dict
+        if txt in buttons_dict.keys():
+            return buttons_dict[txt]()
 
-        if txt == "menu":
-            from state_tree.main_menu import MainMenu
-            return MainMenu()
+

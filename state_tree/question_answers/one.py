@@ -14,10 +14,7 @@ Depending on the amount of work and the number of orders - from 3 days to two we
                         ("Choose a different question ↩️", "questions")]
 
     def process(self, txt='', mark=bool) -> 'BaseState':
-        if txt == "menu":
-            from state_tree.main_menu import MainMenu
-            return MainMenu()
+        if txt:
+            from buttons_dict import buttons_dict
+            return buttons_dict[txt]()
 
-        if txt == 'questions':
-            from state_tree.make_an_order.question_list import Questions
-            return Questions()

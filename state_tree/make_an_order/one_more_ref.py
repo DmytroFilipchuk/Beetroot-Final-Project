@@ -10,15 +10,12 @@ class One_more(BaseState):
         self.buttons = [("Main Menu 🎡", "menu")]
 
     def process(self, txt='', mark = bool) -> 'BaseState':
-
-        if txt == "menu":
-            from state_tree.main_menu import MainMenu
-            return MainMenu()
-
-        elif mark is True:
+        from buttons_dict import buttons_dict
+        if mark is True:
             from state_tree.make_an_order.deadline import Deadline
             return Deadline()
-
+        if txt in buttons_dict.keys():
+            return buttons_dict[txt]()
         else:
             return self
 

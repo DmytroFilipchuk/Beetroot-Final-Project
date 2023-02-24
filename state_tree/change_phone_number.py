@@ -10,12 +10,10 @@ class Change_phone_number(BaseState):
         self.buttons = [("Головне меню 🎡", "menu")]
 
     def process(self, txt='', mark = bool) -> "BaseState":
-        if txt == "menu":
-            from state_tree.main_menu import MainMenu
-            return MainMenu()
-        else:
-            from state_tree.main_menu import MainMenu
-            return MainMenu()
+        from buttons_dict import buttons_dict
+        if txt in buttons_dict.keys():
+            return buttons_dict[txt]()
+
 
 
 

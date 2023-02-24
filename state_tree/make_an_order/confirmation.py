@@ -12,15 +12,9 @@ class ConfirmOrder(BaseState):
                         ("Back ↩️", "back")]
 
     def process(self, txt='', mark = bool) -> 'BaseState':
-
-        if txt == 'yes':
-            from state_tree.make_an_order.confirmed import Confirmed
-            return Confirmed()
-
-        if txt == 'no':
-            from state_tree.make_an_order.our_services import OurServices
-            return OurServices()
-
+        from buttons_dict import buttons_dict
+        if txt in buttons_dict.keys():
+            return buttons_dict[txt]()
         if txt == "back":
             from state_tree.make_an_order.additional_info import AdditionalInfo
             return AdditionalInfo()

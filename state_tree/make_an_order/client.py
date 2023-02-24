@@ -11,14 +11,9 @@ class Client(BaseState):
                         ("Back ↩️", "back")]
 
     def process(self, txt='', mark=bool) -> 'BaseState':
-        if txt == 'services':
-            from state_tree.make_an_order.our_services import OurServices
-            return OurServices()
-
-        if txt == 'questions':
-            from state_tree.make_an_order.question_list import Questions
-            return Questions()
-
+        from buttons_dict import buttons_dict
+        if txt in buttons_dict.keys():
+            return buttons_dict[txt]()
         if txt == "back":
             from state_tree.main_menu import MainMenu
             return MainMenu()

@@ -7,17 +7,12 @@ class FFeelTools(BaseState):
     def __init__(self):
         super().__init__()
         self.buttons = [("Filter playlist by tempo 🎵", 'reference'), ('Converter of voice messages 🔈', 'converter'),
-                        ("Назад ↩️", "back")]
+                        ("Back ↩️", "back")]
 
     def process(self, txt='', mark=bool) -> 'BaseState':
-
-        if txt == 'reference':
-            from state_tree.ffeel_tools.reference import Reference
-            return Reference()
-
-        if txt == 'converter':
-            from state_tree.ffeel_tools.converter import Converter
-            return Converter()
+        from buttons_dict import buttons_dict
+        if txt in buttons_dict.keys():
+            return buttons_dict[txt]()
 
         if txt == "back":
             from state_tree.main_menu import MainMenu

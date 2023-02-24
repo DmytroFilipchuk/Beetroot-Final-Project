@@ -24,26 +24,13 @@ Select the number of the question you are interested in 👇
                         ("Назад ↩️", "back")]
 
     def process(self, txt='', mark=bool) -> 'BaseState':
-        if txt == "one":
-            from state_tree.question_answers.one import One
-            return One()
+        from buttons_dict import buttons_dict
 
-        if txt == "two":
-            from state_tree.question_answers.two import Two
-            return Two()
-
-        if txt == "three":
-            from state_tree.question_answers.three import Three
-            return Three()
-
-        if txt == "four":
-            from state_tree.question_answers.four import Four
-            return Four()
-
-        if txt == "five":
-            from state_tree.question_answers.five import Five
-            return Five()
-
+        if txt in buttons_dict.keys():
+            return buttons_dict[txt]()
         if txt == "back":
             from state_tree.make_an_order.client import Client
             return Client()
+
+
+

@@ -9,27 +9,17 @@ class OurServices(BaseState):
         self.buttons = [("Record for Me 🎸", 'recording'),
                         ('Ghostwriting 🎧', 'ghost_writer'),
                         ('Session Musician  🎼  ', 'session_musician'),
-                        ("Main Menu 🎡", "menu"), ("Назад ↩️", "back")]
+                        ("Main Menu 🎡", "menu"), ("Back ↩️", "back")]
 
     def process(self, txt='', mark=bool) -> 'BaseState':
-        if txt == 'recording':
-            from state_tree.make_an_order.recording_section import Recording
-            return Recording()
-
-        if txt == 'ghost_writer':
-            from state_tree.make_an_order.ghostwriting_section import Ghostwriting
-            return Ghostwriting()
-
-        if txt == 'session_musician':
-            from state_tree.make_an_order.session_musician_section import SessionMusician
-            return SessionMusician()
-
-        if txt == "menu":
-            from state_tree.main_menu import MainMenu
-            return MainMenu()
-
+        from buttons_dict import buttons_dict
+        if txt in buttons_dict.keys():
+            return buttons_dict[txt]()
         if txt == "back":
             from state_tree.make_an_order.client import Client
             return Client()
+
+
+
 
 
